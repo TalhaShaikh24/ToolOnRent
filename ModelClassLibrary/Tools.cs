@@ -20,8 +20,9 @@ namespace ModelClassLibrary
         public int ClientId { get; set; }
         public string PasscodeValue { get; set; }
         public string Email { get; set; }
-        public DateTime? StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
+        public string? StartTime { get; set; }
+        public string? EndTime { get; set; }
+        public DateTime? ExpiryDate { get; set; }
         public int? TotalMinutes { get; set; }
         public int? UsedMinutes { get; set; }
         public bool IsActive { get; set; }
@@ -31,6 +32,8 @@ namespace ModelClassLibrary
         public int CredentialID { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string CardNumber { get; set; }
+        public DateTime ExpiryDate { get; set; }
     }
 
     public class ExtensionAuth : Passcode

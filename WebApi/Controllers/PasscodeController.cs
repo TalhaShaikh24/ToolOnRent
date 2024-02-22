@@ -34,7 +34,7 @@ namespace WebApi.Controllers
 
                 if (credentials == null) return CustomStatusResponse.GetResponse(401);
 
-                var Properties = new List<string> {"PasscodeID", "PasscodeValue", "StartTime", "EndTime", "TotalMinutes", "UsedMinutes", "ToolID","CredentialID", "IsActive", "ClientId" };
+                var Properties = new List<string> {"PasscodeID", "PasscodeValue", "StartTime", "EndTime", "TotalMinutes", "UsedMinutes", "ToolID","CredentialID", "IsActive", "ClientId", "ExpiryDate" };
 
                 var paremeters = DynamicParametersHelper.CreateParameters(obj,Properties, obj.PasscodeID > 0? "Update":"Create");
 

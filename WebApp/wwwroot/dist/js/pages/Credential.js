@@ -148,6 +148,27 @@ function GetAllCredential() {
                 }
             },
             {
+                "data": "cardNumber",
+                "name": "cardNumber",
+                "autoWidth": true
+            },
+            {
+                "data": "expiryDate",
+                "name": "expiryDate",
+                "autoWidth": true,
+                "render": function (full, type, data, meta) {
+                    debugger
+                    if (full == null && full == "0001-01-01T00:00:00") {
+
+                        return "-"
+                    }
+                     
+                    else {
+                        return moment(full).format("YYYY-MM-DD")
+                    }
+                }
+            },
+            {
                 "render": function (full, type, data, meta) {
                     return `
                      <button type="button" id="Btn_Edit" data_id="${data.credentialID}" class="btn btn-primary btn-xs" style="border-radius: 50%!important; width: 35px!important; aspect-ratio: 1!important;">
@@ -165,7 +186,9 @@ $("#Btn_Submit").click(function () {
         CredentialID: Number($("#CredentialID").val()),
         ToolID: Number($("#DDLToolID").val()),
         Email: $("#Email").val(),
-        Password: $("#Password").val()
+        Password: $("#Password").val(),
+        CardNumber: $("#CardNumber").val(),
+        ExpiryDate: $("#ExpiryDate").val(),
     }
     postRequest("/Dashboard/CreateUpdateCredentials", obj, function (res) {
 
@@ -222,7 +245,7 @@ $(document).on("click","#Btn_Edit",function () {
         if (res.status == 200) {
 
             if (res.data && res.data != null) {
-
+                debugger
                 $("#Btn_Submit").text("Update").removeClass("btn-primary").addClass("btn-success");
                 $("#CredentialID").val(res.data[0].credentialID);
                 $("#ToolName").val(res.data[0].toolName);
@@ -230,6 +253,8 @@ $(document).on("click","#Btn_Edit",function () {
                 $("#DDLToolID").val(res.data[0].toolID).attr("disabled", true);
                 $("#Email").val(res.data[0].email)
                 $("#Password").val(res.data[0].password)
+                $("#ExpiryDate").val(moment(res.data[0].expiryDate).format("YYYY-MM-DD"));
+                $("#CardNumber").val(res.data[0].cardNumber);
             }
         }
         if (res.status == 401) {
@@ -273,6 +298,8 @@ $("#Btn_Clear").click(function () {
     $("#ToolURL").val("");
     $("#Email").val("")
     $("#Password").val("")
+    $("#CardNumber").val("");
+    $("#ExpiryDate").val("");
 });
 function postRequest(url, requestData, handledata) {
     $.ajax({

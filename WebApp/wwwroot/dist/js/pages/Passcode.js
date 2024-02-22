@@ -223,7 +223,7 @@ function GetAllPasscode() {
                 "autoWidth": true,
                 "render": function (full, type, data, meta) {
                     debugger
-                    return moment(full).format('MM-DD-YYYY h:mm:ss A')
+                    return moment(moment(full, 'h:mm:ss A')).format('h:mm A');
                 }
 
             },
@@ -232,7 +232,7 @@ function GetAllPasscode() {
                 "name": "endTime",
                 "autoWidth": true,
                 "render": function (full, type, data, meta) {
-                    return moment(full).format('MM-DD-YYYY h:mm:ss A')
+                    return moment(moment(full, 'h:mm:ss A')).format('h:mm A');
                 }
             },
             {
@@ -244,6 +244,22 @@ function GetAllPasscode() {
                 "data": "usedMinutes",
                 "name": "usedMinutes",
                 "autoWidth": true
+            },
+            {
+                "data": "expiryDate",
+                "name": "expiryDate",
+                "autoWidth": true,
+                "render": function (full, type, data, meta) {
+                    debugger
+                    if (full == null || full == "0001-01-01T00:00:00") {
+
+                        return "-"
+                    }
+
+                    else {
+                        return moment(full).format("YYYY-MM-DD")
+                    }
+                }
             },
             {
                 "render": function (full, type, data, meta) {
@@ -321,8 +337,10 @@ $("#Btn_Submit").click(function () {
         StartTime: $("#StartTime").val(),
         EndTime: $("#EndTime").val(),
         TotalMinutes: $("#TotalMinutes").val(),
-        ClientId: Number($("#DDLClient").val())
-    }
+        ClientId: Number($("#DDLClient").val()),
+        ExpiryDate: $("#CardExpiry").val()
+    };
+
     postRequest("/Dashboard/CreateUpdatePasscode", obj, function (res) {
 
         if (res.status == 200) {
@@ -378,6 +396,7 @@ $(document).on("click", "#Btn_Edit", function () {
         if (res.status == 200) {
             
             if (res.data && res.data != null) {
+                debugger
                 cId = res.data[0].credentialID;
                 $("#Btn_Submit").text("Update").removeClass("btn-primary").addClass("btn-success");
                 $("#PasscodeID").val(res.data[0].passcodeID);
@@ -389,6 +408,7 @@ $(document).on("click", "#Btn_Edit", function () {
                 $("#StartTime").val(res.data[0].startTime);
                 $("#EndTime").val(res.data[0].endTime);
                 $("#TotalMinutes").val(res.data[0].totalMinutes);
+                $("#CardExpiry").val(moment(res.data[0].expiryDate).format("YYYY-MM-DD"));
                 $("#DDLClient").val(res.data[0].clientId).change();
                 $("#DDLToolID").change();
 
@@ -448,6 +468,7 @@ $("#Btn_Clear").click(function () {
     $("#StartTime").val("");
     $("#EndTime").val("");
     $("#TotalMinutes").val("");
+    $("#CardExpiry").val("");
 });
 
 function GeneratePassword(length = 25) {
