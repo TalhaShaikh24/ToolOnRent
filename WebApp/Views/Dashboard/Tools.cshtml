@@ -1,0 +1,77 @@
+﻿<section class="col-lg-12">
+
+    <div class="card" style="border-radius: 20px!important">
+        <div class="card-header">
+            <h1 class="card-title">
+                <i class="fas fa-tools mr-1"></i>
+                <b>Create Tool</b>
+            </h1>
+           
+        </div>
+        <div class="card-body">
+            <form class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group d-none">
+                        <input type="hidden" class="form-control" id="ToolID" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Tool Name</label>
+                        <input type="text" class="form-control" id="ToolName" placeholder="Enter Tool Name">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tool URL</label>
+                        <input type="text" class="form-control" id="ToolURL" placeholder="Enter Tool URL">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="button" id="Btn_Clear" class="btn btn-danger float-right btn-md ml-3">Clear</button>
+                    <button type="button" id="Btn_Submit" class="btn btn-primary float-right btn-md">Submit</button>
+                   
+                </div>
+                
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="col-lg-12">
+
+    <div class="card" style="border-radius: 20px!important">
+        <div class="card-header">
+            <h1 class="card-title">
+                <i class="fas fa-tools mr-1"></i>
+                <b>Tool Details</b>
+            </h1>
+
+        </div>
+        <div class="card-body">
+           <table class="table table-bordered" id="ToolTable">
+               <thead>
+                   <tr>
+                        <th>Tool Name</th>
+                        <th>Tool URL</th>
+                        <th>Action</th>
+                   </tr>
+                </thead>
+
+                 <tbody>
+
+               </tbody>
+           </table>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+
+ <script src="~/dist/js/pages/tools.js"></script>
+
+ }             
